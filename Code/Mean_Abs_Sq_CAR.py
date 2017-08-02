@@ -300,8 +300,8 @@ def all_abs_sq_CAR(type):
 
     ### Extended estimation window abs/sqCAR calculation
     print "\n\n\nBEGIN  Extended estimation window " + type + "CAR calculation\n\n\n"
-    if not os.path.isdir("../Result/Extended_EvtWin/"):
-        os.mkdir("../Result/Extended_EvtWin/")
+    if not os.path.isdir("../Result/Extended_EvtWin1/"):
+        os.mkdir("../Result/Extended_EvtWin1/")
 
     for t in all_table:
         print "\n\n Start_Extended: " + t + "\n\n"
@@ -311,10 +311,10 @@ def all_abs_sq_CAR(type):
         else:
             casetype = "Appellate/"
 
-        if not os.path.isdir("../Result/Extended_EstWin/" + t.replace("_", "") + "/"):
-            os.mkdir("../Result/Extended_EstWin/" + t.replace("_", "") + "/")
+        if not os.path.isdir("../Result/Extended_EstWin1/" + t.replace("_", "") + "/"):
+            os.mkdir("../Result/Extended_EstWin1/" + t.replace("_", "") + "/")
 
-        with open("../Result/Extended_EstWin/" + t.replace("_", "") + "/" + type + "_CAR.csv", "w") as resultfile:
+        with open("../Result/Extended_EstWin1/" + t.replace("_", "") + "/" + type + "_CAR.csv", "w") as resultfile:
             writer = csv.writer(resultfile)
             writer.writerow(["Event_Window", type + "_CAR", "90%", "95%", "99%"])
             result = None
@@ -362,7 +362,7 @@ def all_abs_sq_CAR(type):
 
 #all_mean_CAR()
 
-all_abs_sq_CAR("abs")
+#all_abs_sq_CAR("abs")
 
-all_abs_sq_CAR("sq")
+#all_abs_sq_CAR("sq")
 
