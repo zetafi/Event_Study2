@@ -616,8 +616,8 @@ def CAR_app_SD():
 
 
 def CAR_app_EXT1():
-    ## Extended estimation window2
-    #TODO evtwindow
+    ## Extended estimation window1
+
     appellate_ext_filepath = "../Data/Appellate/Appellate_TDCSM_[-225,-50)_[-20,5)_BS.csv"
     if not os.path.isdir("../Data/Appellate/EXT1_CAR"):
         os.mkdir("../Data/Appellate/EXT1_CAR")
@@ -645,11 +645,14 @@ def CAR_app_EXT1():
 
                 ar = row[4].split("@")[0].split("|")
                 rse = float(row[4].split("@")[1])
-
-                #TODO bootstrap
+                res = row[4].split("@")[2].split("|")
 
                 for i in range(0, len(ar)):
                     ar[i] = float(ar[i])
+                for i in range(0, len(res)):
+                    res[i] = float(res[i])
+
+
 
                 condn10 = True
                 condn20 = True
@@ -668,27 +671,100 @@ def CAR_app_EXT1():
                                     condn2 = False
 
                 if condn20:
-                    res_win1.append([row[0], row[1], sum(ar[(evtWin1l + 20):(evtWin1h + 20)]), sum(ar[(evtWin1l + 20):(evtWin1h + 20)]) / (rse * pow(evtWin1h - evtWin1l, 0.5))])
+                    car1 = sum(ar[(evtWin1l + 20):(evtWin1h + 20)])
+                    car_mc1 = []
+                    for bs in range(0, 100000):
+                        car = float(0)
+                        for count in range(0, evtWin1h - evtWin1l):
+                            car += random.choice(res)
+                        car_mc1.append(car)
+                    car_mc1.sort()
+                    pval1 = float(bisect.bisect_left(car_mc1, car1))
+                    pval1 /= 100000
+                    res_win1.append([row[0], row[1], car1, car1 / (rse * pow(evtWin1h - evtWin1l, 0.5)), pval1])
 
                 if condn10:
-                    res_win2.append([row[0], row[1], sum(ar[(evtWin2l + 20):(evtWin2h + 20)]), sum(ar[(evtWin2l + 20):(evtWin2h + 20)]) / (rse * pow(evtWin2h - evtWin2l, 0.5))])
+                    car2 = sum(ar[(evtWin2l + 20):(evtWin2h + 20)])
+                    car_mc2 = []
+                    for bs in range(0, 100000):
+                        car = float(0)
+                        for count in range(0, evtWin2h - evtWin2l):
+                            car += random.choice(res)
+                        car_mc2.append(car)
+                    car_mc2.sort()
+                    pval2 = float(bisect.bisect_left(car_mc2, car2))
+                    pval2 /= 100000
+                    res_win2.append([row[0], row[1], car2, car2 / (rse * pow(evtWin2h - evtWin2l, 0.5)), pval2])
 
                 if condn5:
-                    res_win3.append([row[0], row[1], sum(ar[(evtWin3l + 20):(evtWin3h + 20)]), sum(ar[(evtWin3l + 20):(evtWin3h + 20)]) / (rse * pow(evtWin3h - evtWin3l, 0.5))])
+                    car3 = sum(ar[(evtWin3l + 20):(evtWin3h + 20)])
+                    car_mc3 = []
+                    for bs in range(0, 100000):
+                        car = float(0)
+                        for count in range(0, evtWin3h - evtWin3l):
+                            car += random.choice(res)
+                        car_mc3.append(car)
+                    car_mc3.sort()
+                    pval3 = float(bisect.bisect_left(car_mc3, car3))
+                    pval3 /= 100000
+                    res_win3.append([row[0], row[1], car3, car3 / (rse * pow(evtWin3h - evtWin3l, 0.5)), pval3])
 
                 if condn2:
-                    res_win4.append([row[0], row[1], sum(ar[(evtWin4l + 20):(evtWin4h + 20)]), sum(ar[(evtWin4l + 20):(evtWin4h + 20)]) / (rse * pow(evtWin4h - evtWin4l, 0.5))])
-                    res_win5.append([row[0], row[1], sum(ar[(evtWin5l + 20):(evtWin5h + 20)]), sum(ar[(evtWin5l + 20):(evtWin5h + 20)]) / (rse * pow(evtWin5h - evtWin5l, 0.5))])
+                    car4 = sum(ar[(evtWin4l + 20):(evtWin4h + 20)])
+                    car_mc4 = []
+                    for bs in range(0, 100000):
+                        car = float(0)
+                        for count in range(0, evtWin4h - evtWin4l):
+                            car += random.choice(res)
+                        car_mc4.append(car)
+                    car_mc4.sort()
+                    pval4 = float(bisect.bisect_left(car_mc4, car4))
+                    pval4 /= 100000
+                    res_win4.append([row[0], row[1], car4, car4 / (rse * pow(evtWin4h - evtWin4l, 0.5)), pval4])
 
-                res_win6.append([row[0], row[1], sum(ar[(evtWin6l + 20):(evtWin6h + 20)]), sum(ar[(evtWin6l + 20):(evtWin6h + 20)]) / (rse * pow(evtWin6h - evtWin6l, 0.5))])
-                res_win7.append([row[0], row[1], sum(ar[(evtWin7l + 20):(evtWin7h + 20)]), sum(ar[(evtWin7l + 20):(evtWin7h + 20)]) / (rse * pow(evtWin7h - evtWin7l, 0.5))])
+                    car5= sum(ar[(evtWin5l + 20):(evtWin5h + 20)])
+                    car_mc5 = []
+                    for bs in range(0, 100000):
+                        car = float(0)
+                        for count in range(0, evtWin5h - evtWin5l):
+                            car += random.choice(res)
+                        car_mc5.append(car)
+                    car_mc5.sort()
+                    pval5 = float(bisect.bisect_left(car_mc5, car5))
+                    pval5 /= 100000
+                    res_win5.append([row[0], row[1], car5, car5 / (rse * pow(evtWin5h - evtWin5l, 0.5)), pval5])
+
+                car6 = sum(ar[(evtWin6l + 20):(evtWin6h + 20)])
+                car_mc6 = []
+                for bs in range(0, 100000):
+                    car = float(0)
+                    for count in range(0, evtWin6h - evtWin6l):
+                        car += random.choice(res)
+                    car_mc6.append(car)
+                car_mc6.sort()
+                pval6 = float(bisect.bisect_left(car_mc6, car6))
+                pval6 /= 100000
+                res_win6.append([row[0], row[1], car6, car6 / (rse * pow(evtWin6h - evtWin6l, 0.5)), pval6])
+
+                car7 = sum(ar[(evtWin7l + 20):(evtWin7h + 20)])
+                car_mc7 = []
+                for bs in range(0, 100000):
+                    car = float(0)
+                    for count in range(0, evtWin7h - evtWin7l):
+                        car += random.choice(res)
+                    car_mc7.append(car)
+                car_mc7.sort()
+                pval7 = float(bisect.bisect_left(car_mc7, car7))
+                pval7 /= 100000
+                res_win7.append([row[0], row[1], car7, car7/ (rse * pow(evtWin7h - evtWin7l, 0.5)), pval7])
+
 
             for wini in range(0,7):
                 with open("../Data/Appellate/EXT1_CAR/" + "".join(cate) + "_[" + str(windows[wini][0]) + "," + str(
                         str(windows[wini][1])) + ")_EstWin" + str(
                     extestWinl1) + "," + str(extestWinh1) + "_" + str(len(total_res[wini])) + ".csv", 'w') as resultfile:
                     writer = csv.writer(resultfile)
-                    writer.writerow(["Stock_Ticker", "Decision_Date", "CAR", "CAR/Sigma"])
+                    writer.writerow(["Stock_Ticker", "Decision_Date", "CAR", "CAR/Sigma", "Bootstrap"])
                     for i in total_res[wini]:
                         writer.writerow(i)
                 print "\n\n"
@@ -864,7 +940,7 @@ def CAR_app_MLT():
 
 # CAR_app_SD()
 # CAR_app_MLT()
-# CAR_app_EXT1()
+CAR_app_EXT1()
 # CAR_app_EXT2()
 
 
