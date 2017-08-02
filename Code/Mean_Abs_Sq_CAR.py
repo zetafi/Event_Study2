@@ -120,7 +120,7 @@ def all_mean_CAR():
             type = "Appellate/"
 
         if not os.path.isdir("../Result/Extended_EstWin1/" + t.replace("_", "") + "/"):
-            os.mkdir("../Result/ExtendedEst_Win1/" + t.replace("_", "") + "/")
+            os.mkdir("../Result/Extended_EstWin1/" + t.replace("_", "") + "/")
 
         with open("../Result/Extended_EstWin1/" + t.replace("_", "") + "/" + "Mean_CAR.csv", "w") as resultfile:
             writer = csv.writer(resultfile)
@@ -300,8 +300,8 @@ def all_abs_sq_CAR(type):
 
     ### Extended estimation window abs/sqCAR calculation
     print "\n\n\nBEGIN  Extended estimation window " + type + "CAR calculation\n\n\n"
-    if not os.path.isdir("../Result/Extended_EvtWin1/"):
-        os.mkdir("../Result/Extended_EvtWin1/")
+    if not os.path.isdir("../Result/Extended_EstWin1/"):
+        os.mkdir("../Result/Extended_EstWin1/")
 
     for t in all_table:
         print "\n\n Start_Extended: " + t + "\n\n"
@@ -323,6 +323,7 @@ def all_abs_sq_CAR(type):
                 filepath = glob("../Data/" + casetype + EXT1_CAR + t + win + "_" + extestWin1 + "*.csv")[0]
                 result = [win] + mc_car(filepath, type)
                 writer.writerow(result)
+                print result
         print "\n\n Finish_Extended: " + t + "\n\n"
     print "\n\n\nEND  Extended estimation window " + type + "CAR calculation\n\n\n"
     ### END Extended estimation window
@@ -359,10 +360,7 @@ def all_abs_sq_CAR(type):
     print "\n\n\nEND  MultiFactor " + type + "CAR calculation\n\n\n"
     ### END Standard estimation window
 
-
 #all_mean_CAR()
-
 #all_abs_sq_CAR("abs")
-
-#all_abs_sq_CAR("sq")
+all_abs_sq_CAR("sq")
 
