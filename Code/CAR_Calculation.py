@@ -496,6 +496,11 @@ def all_AR(filepath, estWinl,estWinh, evtWinl, evtWinh, mod = "SM", bs = False):
 #all_AR("../Data/Appellate/Appellate_TDC.csv", -180, -10, -20, 5, mod="SM", bs=True)
 #all_AR("../Data/Appellate/Appellate_TDC.csv", -60, -30, -20, 5, mod="MM", bs=False)
 
+#all_AR("../Data/Trial/Trial_TDC.csv", -60, -30, -20, 5, mod="SM", bs=False)
+##TODO ext window wrong
+#all_AR("../Data/Trial/Trial_TDC.csv", -180, -10, -20, 5, mod="SM", bs=True)
+#all_AR("../Data/Trial/Trial_TDC.csv", -225, -50, -20, 5, mod="SM", bs=True)
+#all_AR("../Data/Trial/Trial_TDC.csv", -60, -30, -20, 5, mod="MM", bs=False)
 
 
 
@@ -524,15 +529,16 @@ evtWin6h = 2
 evtWin7l = 0
 evtWin7h = 5
 
-windows = [[evtWin1l,evtWin1h], [evtWin2l,evtWin2h], [evtWin3l,evtWin3h], [evtWin4l,evtWin4h], [evtWin5l,evtWin5h], [evtWin6l,evtWin6h], [evtWin7l,evtWin7h]]
+windows_app = [[evtWin1l,evtWin1h], [evtWin2l,evtWin2h], [evtWin3l,evtWin3h], [evtWin4l,evtWin4h], [evtWin5l,evtWin5h], [evtWin6l,evtWin6h], [evtWin7l,evtWin7h]]
+windows_tr = [[evtWin3l,evtWin3h], [evtWin4l,evtWin4h], [evtWin5l,evtWin5h], [evtWin6l,evtWin6h], [evtWin7l,evtWin7h]]
 
-cates = [["A1"], ["A2"], ["A1","A2","A3"]]
-
+cates_app = [["A1"], ["A2"], ["A1", "A2", "A3"]]
+cates_tr = [["TJ"], ["TB"], ["T100"], ["TJ","TB","TJB"], ["TVJ"], ["TVB"], ["TV100"], ["TVBF"], ["TVA"], ["TVJ", "TVB", "TVJB"]]
 
 
 #Fun4
 ################################CAR calculator###################################################
-## Input: EstWin start/end, EvtWin start/end, filename
+## Input:
 ## Return:
 def CAR_app_SD():
 
@@ -547,7 +553,7 @@ def CAR_app_SD():
 
         listappdata = list(appdata)
 
-        for cate in cates:
+        for cate in cates_app:
             res_win1 = []
             res_win2 = []
             res_win3 = []
@@ -602,16 +608,16 @@ def CAR_app_SD():
 
 
             for wini in range(0,7):
-                with open("../Data/Appellate/SD_CAR/" + "".join(cate) + "_[" + str(windows[wini][0]) + "," + str(
-                        str(windows[wini][1])) + ")_EstWin" + str(
+                with open("../Data/Appellate/SD_CAR/" + "&".join(cate) + "_[" + str(windows_app[wini][0]) + "," + str(
+                        str(windows_app[wini][1])) + ")_EstWin" + str(
                         estWinl) + "," + str(estWinh) + "_" + str(len(total_res[wini])) + ".csv", 'w') as resultfile:
                     writer = csv.writer(resultfile)
                     writer.writerow(["Stock_Ticker", "Decision_Date", "CAR", "CAR/Sigma"])
                     for i in total_res[wini]:
                         writer.writerow(i)
                 print "\n\n"
-                print "".join(cate) + "_[" + str(windows[wini][0]) + "," + str(
-                        str(windows[wini][1])) + ")_EstWin" + str(
+                print "".join(cate) + "_[" + str(windows_app[wini][0]) + "," + str(
+                        str(windows_app[wini][1])) + ")_EstWin" + str(
                         estWinl) + "," + str(estWinh) + "_" + str(len(total_res[wini]))
                 print "\n\n"
 
@@ -629,7 +635,7 @@ def CAR_app_EXT1():
 
         listappdata = list(appdata)
 
-        for cate in cates:
+        for cate in cates_app:
             res_win1 = []
             res_win2 = []
             res_win3 = []
@@ -762,16 +768,16 @@ def CAR_app_EXT1():
 
 
             for wini in range(0,7):
-                with open("../Data/Appellate/EXT1_CAR/" + "".join(cate) + "_[" + str(windows[wini][0]) + "," + str(
-                        str(windows[wini][1])) + ")_EstWin" + str(
+                with open("../Data/Appellate/EXT1_CAR/" + "&".join(cate) + "_[" + str(windows_app[wini][0]) + "," + str(
+                        str(windows_app[wini][1])) + ")_EstWin" + str(
                     extestWinl1) + "," + str(extestWinh1) + "_" + str(len(total_res[wini])) + ".csv", 'w') as resultfile:
                     writer = csv.writer(resultfile)
-                    writer.writerow(["Stock_Ticker", "Decision_Date", "CAR", "CAR/Sigma", "Bootstrap"])
+                    writer.writerow(["Stock_Ticker", "Decision_Date", "CAR", "CAR/Sigma", "Bootstrap(CAR>%)"])
                     for i in total_res[wini]:
                         writer.writerow(i)
                 print "\n\n"
-                print "".join(cate) + "_[" + str(windows[wini][0]) + "," + str(
-                        str(windows[wini][1])) + ")_EstWin" + str(
+                print "".join(cate) + "_[" + str(windows_app[wini][0]) + "," + str(
+                        str(windows_app[wini][1])) + ")_EstWin" + str(
                         extestWinl1) + "," + str(extestWinh1) + "_" + str(len(total_res[wini]))
                 print "\n\n"
 
@@ -789,7 +795,7 @@ def CAR_app_EXT2():
 
         listappdata = list(appdata)
 
-        for cate in cates:
+        for cate in cates_app:
             res_win1 = []
             res_win2 = []
             res_win3 = []
@@ -845,16 +851,16 @@ def CAR_app_EXT2():
                 res_win7.append([row[0], row[1], sum(ar[(evtWin7l + 20):(evtWin7h + 20)]), sum(ar[(evtWin7l + 20):(evtWin7h + 20)]) / (rse * pow(evtWin7h - evtWin7l, 0.5))])
 
             for wini in range(0,7):
-                with open("../Data/Appellate/EXT2_CAR/" + "".join(cate) + "_[" + str(windows[wini][0]) + "," + str(
-                        str(windows[wini][1])) + ")_EstWin" + str(
+                with open("../Data/Appellate/EXT2_CAR/" + "&".join(cate) + "_[" + str(windows_app[wini][0]) + "," + str(
+                        str(windows_app[wini][1])) + ")_EstWin" + str(
                     extestWinh2) + "," + str(extestWinh2) + "_" + str(len(total_res[wini])) + ".csv", 'w') as resultfile:
                     writer = csv.writer(resultfile)
                     writer.writerow(["Stock_Ticker", "Decision_Date", "CAR", "CAR/Sigma"])
                     for i in total_res[wini]:
                         writer.writerow(i)
                 print "\n\n"
-                print "".join(cate) + "_[" + str(windows[wini][0]) + "," + str(
-                        str(windows[wini][1])) + ")_EstWin" + str(
+                print "".join(cate) + "_[" + str(windows_app[wini][0]) + "," + str(
+                        str(windows_app[wini][1])) + ")_EstWin" + str(
                         extestWinl2) + "," + str(extestWinh2) + "_" + str(len(total_res[wini]))
                 print "\n\n"
 
@@ -871,7 +877,7 @@ def CAR_app_MLT():
 
         listappdata = list(appdata)
 
-        for cate in cates:
+        for cate in cates_app:
             res_win1 = []
             res_win2 = []
             res_win3 = []
@@ -925,16 +931,16 @@ def CAR_app_MLT():
                 res_win7.append([row[0], row[1], sum(ar[(evtWin7l + 20):(evtWin7h + 20)]), sum(ar[(evtWin7l + 20):(evtWin7h + 20)]) / (rse * pow(evtWin7h - evtWin7l, 0.5))])
 
             for wini in range(0,7):
-                with open("../Data/Appellate/MLT_CAR/" + "".join(cate) + "_[" + str(windows[wini][0]) + "," + str(
-                        str(windows[wini][1])) + ")_EstWin" + str(
+                with open("../Data/Appellate/MLT_CAR/" + "&".join(cate) + "_[" + str(windows_app[wini][0]) + "," + str(
+                        str(windows_app[wini][1])) + ")_EstWin" + str(
                         estWinl) + "," + str(estWinh) + "_" + str(len(total_res[wini])) + ".csv", 'w') as resultfile:
                     writer = csv.writer(resultfile)
                     writer.writerow(["Stock_Ticker", "Decision_Date", "CAR", "CAR/Sigma"])
                     for i in total_res[wini]:
                         writer.writerow(i)
                 print "\n\n"
-                print "".join(cate) + "_[" + str(windows[wini][0]) + "," + str(
-                        str(windows[wini][1])) + ")_EstWin" + str(
+                print "".join(cate) + "_[" + str(windows_app[wini][0]) + "," + str(
+                        str(windows_app[wini][1])) + ")_EstWin" + str(
                         estWinl) + "," + str(estWinh) + "_" + str(len(total_res[wini]))
                 print "\n\n"
 
@@ -942,7 +948,166 @@ def CAR_app_MLT():
 
 # CAR_app_SD()
 # CAR_app_MLT()
-CAR_app_EXT1()
+# CAR_app_EXT1()
 # CAR_app_EXT2()
 
 
+def CAR_tr_SD():
+    ## Standard estimation window
+    trial_sd_filepath = "../Data/Trial/Trial_TDCSM_[-60,-30)_[-20,5)_NBS.csv"
+    if not os.path.isdir("../Data/Trial/SD_CAR"):
+        os.mkdir("../Data/Trial/SD_CAR")
+
+    with open(trial_sd_filepath, 'rb') as csvfile:
+        trdata = csv.reader(csvfile)
+        header = next(trdata)
+
+        listtrdata = list(trdata)
+
+        for cate in cates_tr:
+            for win in windows_tr:
+                car_res = []
+                for row in listtrdata:
+                    if row[3] == "ERROR":
+                        continue
+                    cates_row = row[2].split("|")
+                    right_cate = False
+                    for item in cates_row:
+                        if item in cate:
+                            right_cate = True
+                            break
+                    if not right_cate:
+                        continue
+
+                    ar = row[3].split("@")[0].split("|")
+                    rse = float(row[3].split("@")[1])
+                    for i in range(0, len(ar)):
+                        ar[i] = float(ar[i])
+                    car = sum(ar[(win[0] + 20):(win[1] + 20)])
+                    car_res.append([row[0], row[1], car, car / (rse * pow(win[1] - win[0], 0.5))])
+
+                with open("../Data/Trial/SD_CAR/" + "&".join(cate) + "_[" + str(win[0]) + "," + str(
+                        str(win[1])) + ")_EstWin" + str(estWinl) + "," + str(estWinh) + "_" + str(len(car_res)) + ".csv", 'w') as resultfile:
+                    writer = csv.writer(resultfile)
+                    writer.writerow(["Stock_Ticker", "Decision_Date", "CAR", "CAR/Sigma"])
+                    for i in car_res:
+                        writer.writerow(i)
+                print "\n\n"
+                print "&".join(cate) + "_[" + str(win[0]) + "," + str(win[1]) + ")_EstWin" + str(
+                    estWinl) + "," + str(estWinh) + "_" + str(len(car_res))
+                print "\n\n"
+
+
+def CAR_tr_EXT1():
+    ## Standard estimation window
+    trial_ext_filepath = "../Data/Trial/Trial_TDCSM_[-225,-50)_[-20,5)_BS.csv"
+    if not os.path.isdir("../Data/Trial/EXT1_CAR"):
+        os.mkdir("../Data/Trial/EXT1_CAR")
+
+    with open(trial_ext_filepath, 'rb') as csvfile:
+        trdata = csv.reader(csvfile)
+        header = next(trdata)
+
+        listtrdata = list(trdata)
+
+        for cate in cates_tr:
+            for win in windows_tr:
+
+                print "Category : " + "&".join(cate) + "EstWin : " + str(win[0]) + " to " + str(win[1]) + "\n\n"
+                car_res = []
+                for row in listtrdata:
+                    if row[3] == "ERROR":
+                        continue
+                    cates_row = row[2].split("|")
+                    right_cate = False
+                    for item in cates_row:
+                        if item in cate:
+                            right_cate = True
+                            break
+                    if not right_cate:
+                        continue
+
+                    ar = row[3].split("@")[0].split("|")
+                    rse = float(row[3].split("@")[1])
+                    res = row[3].split("@")[2].split("|")
+                    for i in range(0, len(ar)):
+                        ar[i] = float(ar[i])
+                    for i in range(0, len(res)):
+                        res[i] = float(res[i])
+
+                    car = sum(ar[(win[0] + 20):(win[1] + 20)])
+                    car_mc = []
+                    for bs in range(0, 100000):
+                        car = float(0)
+                        for count in range(0, win[1] - win[0]):
+                            car += random.choice(res)
+                        car_mc.append(car)
+                    car_mc.sort()
+                    pval = float(bisect.bisect_left(car_mc, car))
+                    pval /= 100000
+                    car_res.append([row[0], row[1], car, car / (rse * pow(win[1] - win[0], 0.5)), pval])
+
+                with open("../Data/Trial/EXT1_CAR/" + "&".join(cate) + "_[" + str(win[0]) + "," + str(
+                        str(win[1])) + ")_EstWin" + str(extestWinl1) + "," + str(extestWinh1) + "_" + str(len(car_res)) + ".csv", 'w') as resultfile:
+                    writer = csv.writer(resultfile)
+                    writer.writerow(["Stock_Ticker", "Decision_Date", "CAR", "CAR/Sigma", "Bootstrap(CAR>%)"])
+                    for i in car_res:
+                        writer.writerow(i)
+                print "\n\n"
+                print "&".join(cate) + "_[" + str(win[0]) + "," + str(win[1]) + ")_EstWin" + str(
+                    estWinl) + "," + str(estWinh) + "_" + str(len(car_res))
+                print "\n\n"
+
+
+def CAR_tr_MLT():
+    ## Standard estimation window
+    trial_mlt_filepath = "../Data/Trial/Trial_TDCMM_[-60,-30)_[-20,5)_NBS.csv"
+    if not os.path.isdir("../Data/Trial/MLT_CAR"):
+        os.mkdir("../Data/Trial/MLT_CAR")
+
+    with open(trial_mlt_filepath, 'rb') as csvfile:
+        trdata = csv.reader(csvfile)
+        header = next(trdata)
+
+        listtrdata = list(trdata)
+
+        for cate in cates_tr:
+            for win in windows_tr:
+                car_res = []
+                for row in listtrdata:
+                    if row[3] == "ERROR":
+                        continue
+                    cates_row = row[2].split("|")
+                    right_cate = False
+                    for item in cates_row:
+                        if item in cate:
+                            right_cate = True
+                            break
+                    if not right_cate:
+                        continue
+
+                    ar = row[3].split("@")[0].split("|")
+                    rse = float(row[3].split("@")[1])
+                    for i in range(0, len(ar)):
+                        ar[i] = float(ar[i])
+                    car = sum(ar[(win[0] + 20):(win[1] + 20)])
+                    car_res.append([row[0], row[1], car, car / (rse * pow(win[1] - win[0], 0.5))])
+
+                with open("../Data/Trial/MLT_CAR/" + "&".join(cate) + "_[" + str(win[0]) + "," + str(
+                        str(win[1])) + ")_EstWin" + str(estWinl) + "," + str(estWinh) + "_" + str(len(car_res)) + ".csv", 'w') as resultfile:
+                    writer = csv.writer(resultfile)
+                    writer.writerow(["Stock_Ticker", "Decision_Date", "CAR", "CAR/Sigma"])
+                    for i in car_res:
+                        writer.writerow(i)
+                print "\n\n"
+                print "&".join(cate) + "_[" + str(win[0]) + "," + str(win[1]) + ")_EstWin" + str(
+                    estWinl) + "," + str(estWinh) + "_" + str(len(car_res))
+                print "\n\n"
+
+
+
+
+#CAR_tr_SD()
+## TODO run ext1
+#CAR_tr_EXT1()
+#CAR_tr_MLT()

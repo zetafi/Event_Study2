@@ -35,23 +35,25 @@ def mean_CAR(filepath):
 
 
 
+
+
 def all_mean_CAR():
-    t1 = "T1_"
-    t2 = "TV2_"
-    t3 = "TV3_"
-    t4 = "TV4_"
-    t5 = "T5_"
-    t6 = "TV6_"
-    t7 = "T7_"
-    t8 = "T8_"
-    t9 = "TV9_"
-    t10 = "TV10_"
+    t1 = "T100_"
+    t2 = "TB_"
+    t3 = "TJ_"
+    t4 = "TJ&TB&TJB_"
+    t5 = "TV100_"
+    t6 = "TVA_"
+    t7 = "TVB_"
+    t8 = "TVBF_"
+    t9 = "TVJ_"
+    t10 = "TVJ&TVB&TVJB_"
     a1 = "A1_"
     a2 = "A2_"
     a3 = "A1A2A3_"
 
     #all_table = [t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, a1, a2, a3]
-    all_table = [a1,a2,a3]
+    all_table = [t1, t2, t3, t4, t5, t6, t7, t8, t9, t10]
 
     evtWin1 = "[-20,0)"
     evtWin2 = "[-10,0)"
@@ -61,7 +63,8 @@ def all_mean_CAR():
     evtWin6 = "[0,2)"
     evtWin7 = "[0,5)"
 
-    all_evtWin = [evtWin1, evtWin2, evtWin3, evtWin4, evtWin5, evtWin6, evtWin7]
+    evtWin_app = [evtWin1, evtWin2, evtWin3, evtWin4, evtWin5, evtWin6, evtWin7]
+    evtWin_tr = [evtWin3, evtWin4, evtWin5, evtWin6, evtWin7]
 
     estWin = "EstWin-60,-30_"
     extestWin1 = "EstWin-225,-50_"
@@ -96,6 +99,11 @@ def all_mean_CAR():
             writer.writerow(["Event_Window", "Mean_CAR", "Var(MCAR)", "z-stat", "p-value"])
             result = None
 
+            if type == "Trial/":
+                all_evtWin = evtWin_tr
+            else:
+                all_evtWin = evtWin_app
+
             for win in all_evtWin:
                 filepath = glob("../Data/" + type + SD_CAR + t + win + "_" + estWin + "*.csv")[0]
                 result = [win] + mean_CAR(filepath)
@@ -105,36 +113,41 @@ def all_mean_CAR():
     print "\n\n\nEND  Standard estimation window mCAR calculation\n\n\n"
     ### END Standard estimation window
 
-
-    ### Extended Window mean CAR calculation
-    print "\n\n\nBEGIN  Extended estimation window mCAR calculation\n\n\n"
-    if not os.path.isdir("../Result/Extended_EstWin1/"):
-        os.mkdir("../Result/Extended_EstWin1/")
-
-    for t in all_table:
-        print "\n\n Start_Ext: " + t + "\n\n"
-        type = ""
-        if "T" in t:
-            type = "Trial/"
-        else:
-            type = "Appellate/"
-
-        if not os.path.isdir("../Result/Extended_EstWin1/" + t.replace("_", "") + "/"):
-            os.mkdir("../Result/Extended_EstWin1/" + t.replace("_", "") + "/")
-
-        with open("../Result/Extended_EstWin1/" + t.replace("_", "") + "/" + "Mean_CAR.csv", "w") as resultfile:
-            writer = csv.writer(resultfile)
-            writer.writerow(["Event_Window", "Mean_CAR", "Var(MCAR)", "z-stat", "p-value"])
-            result = None
-
-            for win in all_evtWin:
-                filepath = glob("../Data/" + type + EXT1_CAR + t + win + "_" + extestWin1 + "*.csv")[0]
-                result = [win] + mean_CAR(filepath)
-                writer.writerow(result)
-                print result
-        print "\n\n Finish_Ext: " + t + "\n\n"
-    print "\n\n\nEND  Extended1 estimation window mCAR calculation\n\n\n"
-    ### END extended estimation window
+    # TODO EXT1
+    # ### Extended Window mean CAR calculation
+    # print "\n\n\nBEGIN  Extended estimation window mCAR calculation\n\n\n"
+    # if not os.path.isdir("../Result/Extended_EstWin1/"):
+    #     os.mkdir("../Result/Extended_EstWin1/")
+    #
+    # for t in all_table:
+    #     print "\n\n Start_Ext1: " + t + "\n\n"
+    #     type = ""
+    #     if "T" in t:
+    #         type = "Trial/"
+    #     else:
+    #         type = "Appellate/"
+    #
+    #     if not os.path.isdir("../Result/Extended_EstWin1/" + t.replace("_", "") + "/"):
+    #         os.mkdir("../Result/Extended_EstWin1/" + t.replace("_", "") + "/")
+    #
+    #     with open("../Result/Extended_EstWin1/" + t.replace("_", "") + "/" + "Mean_CAR.csv", "w") as resultfile:
+    #         writer = csv.writer(resultfile)
+    #         writer.writerow(["Event_Window", "Mean_CAR", "Var(MCAR)", "z-stat", "p-value"])
+    #         result = None
+    #
+    #         if type == "Trial/":
+    #             all_evtWin = evtWin_tr
+    #         else:
+    #             all_evtWin = evtWin_app
+    #
+    #         for win in all_evtWin:
+    #             filepath = glob("../Data/" + type + EXT1_CAR + t + win + "_" + extestWin1 + "*.csv")[0]
+    #             result = [win] + mean_CAR(filepath)
+    #             writer.writerow(result)
+    #             print result
+    #     print "\n\n Finish_Ext: " + t + "\n\n"
+    # print "\n\n\nEND  Extended1 estimation window mCAR calculation\n\n\n"
+    # ### END extended estimation window
 
 
     ### Multi-factor(ExtEstWin) mean CAR calculation
@@ -158,6 +171,11 @@ def all_mean_CAR():
             writer.writerow(["Event_Window", "Mean_CAR", "Var(MCAR)", "z-stat", "p-value"])
             result = None
 
+            if type == "Trial/":
+                all_evtWin = evtWin_tr
+            else:
+                all_evtWin = evtWin_app
+
             for win in all_evtWin:
                 filepath = glob("../Data/" + type + MLT_CAR + t + win + "_" + estWin + "*.csv")[0]
                 result = [win] + mean_CAR(filepath)
@@ -174,15 +192,6 @@ def all_mean_CAR():
 def mc_car(filepath, type):
     #estWinl, estWinh, evtWinl, evtWinh
     mcrep = 100000
-
-
-    # startind = filepath.find("[")
-    # middleind = filepath.find(",", startind)
-    # endind = filepath.find(")", startind)
-    #
-    # evtWinl = int(filepath[(startind + 1):middleind])
-    # evtWinh = int(filepath[(middleind + 1):endind])
-
 
     with open(filepath, 'rb') as csvfile:
         cars = csv.reader(csvfile)
@@ -220,27 +229,24 @@ def mc_car(filepath, type):
             result = [sq_cars, mc_res[90000], mc_res[95000], mc_res[99000]]
             return result
 
-#print mc_car("data/Trial/CAR/T1_[-5,0)_EstWin-60,-30_trial_all.csv","abs")
-
-
 
 def all_abs_sq_CAR(type):
-    t1 = "T1_"
-    t2 = "TV2_"
-    t3 = "TV3_"
-    t4 = "TV4_"
-    t5 = "T5_"
-    t6 = "TV6_"
-    t7 = "T7_"
-    t8 = "T8_"
-    t9 = "TV9_"
-    t10 = "TV10_"
+    t1 = "T100_"
+    t2 = "TB_"
+    t3 = "TJ_"
+    t4 = "TJ&TB&TJB_"
+    t5 = "TV100_"
+    t6 = "TVA_"
+    t7 = "TVB_"
+    t8 = "TVBF_"
+    t9 = "TVJ_"
+    t10 = "TVJ&TVB&TVJB_"
     a1 = "A1_"
     a2 = "A2_"
     a3 = "A1A2A3_"
 
     # all_table = [t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, a1, a2, a3]
-    all_table = [a1, a2, a3]
+    all_table = [t1, t2, t3, t4, t5, t6, t7, t8, t9, t10]
 
     evtWin1 = "[-20,0)"
     evtWin2 = "[-10,0)"
@@ -250,8 +256,8 @@ def all_abs_sq_CAR(type):
     evtWin6 = "[0,2)"
     evtWin7 = "[0,5)"
 
-
-    all_evtWin = [evtWin1, evtWin2, evtWin3, evtWin4, evtWin5, evtWin6, evtWin7]
+    evtWin_app = [evtWin1, evtWin2, evtWin3, evtWin4, evtWin5, evtWin6, evtWin7]
+    evtWin_tr = [evtWin3, evtWin4, evtWin5, evtWin6, evtWin7]
 
     estWin = "EstWin-60,-30_"
     extestWin1 = "EstWin-225,-50_"
@@ -287,6 +293,11 @@ def all_abs_sq_CAR(type):
             writer.writerow(["Event_Window", type + "_CAR", "90%", "95%", "99%"])
             result = None
 
+            if casetype == "Trial/":
+                all_evtWin = evtWin_tr
+            else:
+                all_evtWin = evtWin_app
+
             for win in all_evtWin:
                 filepath = glob("../Data/" + casetype + SD_CAR + t + win + "_" + estWin + "*.csv")[0]
                 result = [win] + mc_car(filepath, type)
@@ -297,36 +308,41 @@ def all_abs_sq_CAR(type):
     ### END Standard estimation window
 
 
-
-    ### Extended estimation window abs/sqCAR calculation
-    print "\n\n\nBEGIN  Extended estimation window " + type + "CAR calculation\n\n\n"
-    if not os.path.isdir("../Result/Extended_EstWin1/"):
-        os.mkdir("../Result/Extended_EstWin1/")
-
-    for t in all_table:
-        print "\n\n Start_Extended: " + t + "\n\n"
-        casetype = ""
-        if "T" in t:
-            casetype = "Trial/"
-        else:
-            casetype = "Appellate/"
-
-        if not os.path.isdir("../Result/Extended_EstWin1/" + t.replace("_", "") + "/"):
-            os.mkdir("../Result/Extended_EstWin1/" + t.replace("_", "") + "/")
-
-        with open("../Result/Extended_EstWin1/" + t.replace("_", "") + "/" + type + "_CAR.csv", "w") as resultfile:
-            writer = csv.writer(resultfile)
-            writer.writerow(["Event_Window", type + "_CAR", "90%", "95%", "99%"])
-            result = None
-
-            for win in all_evtWin:
-                filepath = glob("../Data/" + casetype + EXT1_CAR + t + win + "_" + extestWin1 + "*.csv")[0]
-                result = [win] + mc_car(filepath, type)
-                writer.writerow(result)
-                print result
-        print "\n\n Finish_Extended: " + t + "\n\n"
-    print "\n\n\nEND  Extended estimation window " + type + "CAR calculation\n\n\n"
-    ### END Extended estimation window
+    # # TODO EXT1
+    # ### Extended estimation window abs/sqCAR calculation
+    # print "\n\n\nBEGIN  Extended estimation window " + type + "CAR calculation\n\n\n"
+    # if not os.path.isdir("../Result/Extended_EstWin1/"):
+    #     os.mkdir("../Result/Extended_EstWin1/")
+    #
+    # for t in all_table:
+    #     print "\n\n Start_Extended: " + t + "\n\n"
+    #     casetype = ""
+    #     if "T" in t:
+    #         casetype = "Trial/"
+    #     else:
+    #         casetype = "Appellate/"
+    #
+    #     if not os.path.isdir("../Result/Extended_EstWin1/" + t.replace("_", "") + "/"):
+    #         os.mkdir("../Result/Extended_EstWin1/" + t.replace("_", "") + "/")
+    #
+    #     with open("../Result/Extended_EstWin1/" + t.replace("_", "") + "/" + type + "_CAR.csv", "w") as resultfile:
+    #         writer = csv.writer(resultfile)
+    #         writer.writerow(["Event_Window", type + "_CAR", "90%", "95%", "99%"])
+    #         result = None
+    #
+    #         if casetype == "Trial/":
+    #             all_evtWin = evtWin_tr
+    #         else:
+    #             all_evtWin = evtWin_app
+    #
+    #         for win in all_evtWin:
+    #             filepath = glob("../Data/" + casetype + EXT1_CAR + t + win + "_" + extestWin1 + "*.csv")[0]
+    #             result = [win] + mc_car(filepath, type)
+    #             writer.writerow(result)
+    #             print result
+    #     print "\n\n Finish_Extended: " + t + "\n\n"
+    # print "\n\n\nEND  Extended estimation window " + type + "CAR calculation\n\n\n"
+    # ### END Extended estimation window
 
 
 
@@ -351,6 +367,11 @@ def all_abs_sq_CAR(type):
             writer.writerow(["Event_Window", type + "_CAR", "90%", "95%", "99%"])
             result = None
 
+            if casetype == "Trial/":
+                all_evtWin = evtWin_tr
+            else:
+                all_evtWin = evtWin_app
+
             for win in all_evtWin:
                 filepath = glob("../Data/" + casetype + MLT_CAR + t + win + "_" + estWin + "*.csv")[0]
                 result = [win] + mc_car(filepath, type)
@@ -361,6 +382,6 @@ def all_abs_sq_CAR(type):
     ### END Standard estimation window
 
 #all_mean_CAR()
-#all_abs_sq_CAR("abs")
+all_abs_sq_CAR("abs")
 all_abs_sq_CAR("sq")
 

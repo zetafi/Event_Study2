@@ -34,277 +34,6 @@ def all_complete_trial_data():
 
 
 
-
-# ALL Beneficiary consistent data
-## Extract all the items in "data/Trial/all_complete_trial.csv" that the company name is in Beneficiary or Against in the its remedies.
-### result in "data/Trial/trial_bene_agnst_valid.csv"   510 valid cases    1402 valid remedy items
-def trial_beneficiary_valid():
-    # filings are too long, add this line to avoid error when reading the csv
-    csv.field_size_limit(sys.maxsize)
-
-    with open('data/Trial/all_complete_trial.csv', 'rb') as csvfile:
-        fulltrdata = csv.reader(csvfile)
-        header = fulltrdata.next()
-
-        with open("data/Trial/trial_bene_agnst_valid.csv", 'w') as resultfile:
-            writer = csv.writer(resultfile)
-            writer.writerow(header)
-
-            count = 0
-            totalval = []
-
-            for row in fulltrdata:
-                ## the content is seperated by ', u' or ", u' or ', u" or ", u"
-                benes = re.split("[\'\"],\su[\'\"]", row[34])
-                ## remove the extra char from the first one and the last one
-                benes[0] = benes[0].replace("[u\'", "")
-                benes[-1] = benes[-1].replace("\']", "")
-
-                nonbenes = re.split("[\'\"],\su[\'\"]", row[33])
-                nonbenes[0] = nonbenes[0].replace("[u\'", "")
-                nonbenes[-1] = nonbenes[-1].replace("\']", "")
-
-                types = re.split("[\'\"],\su[\'\"]", row[35])
-                types[0] = types[0].replace("[u\'", "")
-                types[-1] = types[-1].replace("\']", "")
-
-                amounts = row[36].split("\', u\'")
-                amounts[0] = amounts[0].replace("[u\'", "")
-                amounts[-1] = amounts[-1].replace("\']", "")
-
-                dates = row[37].split("\', u\'")
-                dates[0] = dates[0].replace("[u\'", "")
-                dates[-1] = dates[-1].replace("\']", "")
-
-
-                valitem = []
-                for i in range(0, len(dates)):
-                    if benes[i] == row[9] or nonbenes[i] == row[9]:
-                        valitem.append(i)
-
-                if len(valitem) == 0:
-                    continue
-
-                count += 1
-                totalval.append(len(valitem))
-
-                val_nonbenes = []
-                val_benes = []
-                val_types = []
-                val_amounts = []
-                val_dates = []
-
-                for i in valitem:
-                    val_nonbenes.append(nonbenes[i])
-                    val_benes.append(benes[i])
-                    val_types.append(types[i])
-                    val_amounts.append(amounts[i])
-                    val_dates.append(dates[i])
-
-                row[33] = "@".join(val_nonbenes)
-                row[34] = "@".join(val_benes)
-                row[35] = "@".join(val_types)
-                row[36] = "@".join(val_amounts)
-                row[37] = "@".join(val_dates)
-
-                writer.writerow(row)
-            print ["Trial valid cases : ", count]
-            print ["Trial valid remedy items : ", sum(totalval)]
-
-
-# TV2&TV3&TV4
-## TV2 is the target table of all company with benefit.TV3 is the target table of all company without benefit and only the one that match the item name would be considered.
-## TV4 is the combination of TV2 and TV3
-## COL9 is "Stock_Ticker". COL10 is "Company_Name" COL34 is "remedies_against". COL35 is "remedies_beneficiary". COL38 is "remedies_date"
-## 472 items for beneficiary     305 items for non-beneficiary    763 items in total
-def TV2_TV3_TV4_trial_benefit():
-    # filings are too long, add this line to avoid error when reading the csv
-    csv.field_size_limit(sys.maxsize)
-
-
-    with open('../Data/Trial/trial_bene_agnst_valid.csv', 'rb') as csvfile:
-        benetrdata = csv.reader(csvfile)
-        header = benetrdata.next()
-
-        resultbene = []
-        resultnonbene = []
-
-        for row in benetrdata:
-            ## the content is seperated by "@"
-            benes = row[34].split("@")
-            nonbenes = row[33].split("@")
-            dates = row[37].split("@")
-
-            for i in range(0, len(dates)):
-                if benes[i] == row[9]:
-                    # combine ticker and date to a single string for convenience of comparison
-                    resultbene.append(row[8] + "@" + dates[i])
-                if nonbenes[i] == row[9]:
-                    # combine ticker and date to a single string for convenience of comparison
-                    resultnonbene.append(row[8] + "@" + dates[i])
-
-        resultall = resultbene + resultnonbene
-
-        for i in resultbene:
-            if i in resultnonbene:
-                print i
-
-
-
-
-        # turn a list into set to eliminate duplication
-        # resultbene = set(resultbene)
-        # resultnonbene = set(resultnonbene)
-        # resultall = set(resultall)
-
-        # with open("data/Trial/TV2_trial_beneficiary.csv", 'w') as resultfile1:
-        #     writer = csv.writer(resultfile1)
-        #     writer.writerow(["Stock_Ticker", "Decision_Date"])
-        #
-        #     for elem in resultbene:
-        #         writer.writerow(elem.split("@"))
-        #
-        # with open("data/Trial/TV3_trial_non_beneficiary.csv", 'w') as resultfile2:
-        #     writer = csv.writer(resultfile2)
-        #     writer.writerow(["Stock_Ticker", "Decision_Date"])
-        #
-        #     for elem in resultnonbene:
-        #         writer.writerow(elem.split("@"))
-        #
-        # with open("data/Trial/TV4_trial_bene&nonbene.csv", 'w') as resultfile3:
-        #     writer = csv.writer(resultfile3)
-        #     writer.writerow(["Stock_Ticker", "Decision_Date"])
-        #
-        #     for elem in resultall:
-        #         writer.writerow(elem.split("@"))
-
-        print ["Beneficiary cases : " , len(resultbene)]
-        print ["Non-beneficiary cases : ", len(resultnonbene)]
-        print ["Beneficiray + Non-beneficiary cases : ", len(resultall)]
-
-
-TV2_TV3_TV4_trial_benefit()
-
-
-# TV6 is the table of all benefit valid trial cases that remedy amount is greater than $100,000
-## COL9 is "Stock_Ticker". COL10 is "Company_Name" COL34 is "remedies_against". COL35 is "remedies_beneficiary". COL37 is "remedies_amount". COL38 is "remedies_date"
-## The result file is in "data/Trial/TV6_trial_valid_rem_100th.csv"   Total: 348 items
-def TV6_trial_valid_100th():
-    #filings are too long, add this line to avoid error when reading the csv
-    csv.field_size_limit(sys.maxsize)
-
-    with open('data/Trial/trial_bene_agnst_valid.csv', 'rb') as csvfile:
-        benetrdata = csv.reader(csvfile)
-        header = benetrdata.next()
-
-        result = []
-        for row in benetrdata:
-            amounts = row[36].split("@")
-            dates = row[37].split("@")
-
-            for i in range(0, len(dates)):
-                if amounts[i] != "N/A":
-                    amounts[i] = amounts[i].replace("$", "")
-                    amounts[i] = amounts[i].replace(",", "")
-                    amounts[i] = int(float(amounts[i]))
-                    if amounts[i] > 100000:
-                        result.append(row[8] + "@" + dates[i])
-
-
-        result = set(result)
-
-        with open("data/Trial/TV6_trial_valid_rem_100th.csv", 'w') as resultfile:
-            writer = csv.writer(resultfile)
-            writer.writerow(["Stock_Ticker", "Decision_Date"])
-
-            for elem in result:
-                writer.writerow(elem.split("@"))
-
-        print ["Trial valid remedy amount > $100,000 : ", len(result)]
-
-
-
-
-# TV9&TV10 TV9/TV10 is the table of all benefit valid trial cases that the remedy is decided by the jury/bench.
-## COL9 is "Stock_Ticker". COL27 is "case url". COL28 is "filing_dates". COL29 is "filing_descriptions". COL38 is "remedies_date"
-## The result file is in "data/Trial/TV9_trial_valid_jury.csv"   Total: 100(104) items
-## The result file is in "data/Trial/TV10_trial_valid_bench.csv"   Total: 635(668) items
-def TV9_TV10_trial_valid_jury():
-    # filings are too long, add this line to avoid error when reading the csv
-    csv.field_size_limit(sys.maxsize)
-
-    with open('data/Trial/trial_bene_agnst_valid.csv', 'rb') as csvfile:
-        benetrdata = csv.reader(csvfile)
-        header = benetrdata.next()
-
-        juryresult = []
-        benchresult = []
-
-
-        ######## exception
-
-
-        for row in benetrdata:
-            if row[26] in urls:
-                continue
-
-            fdates = re.split("[\'\"],\su[\'\"]", row[27])
-            fdates[0] = fdates[0].replace("[u\'", "")
-            fdates[-1] = fdates[-1].replace("\']", "")
-
-            filings = re.split("[\'\"],\su[\'\"]", row[28])
-            filings[0] = filings[0].replace("[u\'", "")
-            filings[-1] = filings[-1].replace("\']", "")
-
-            rdates = row[37].split("@")
-
-
-
-            for remi in range(len(rdates)):
-                evtfilings = ""
-                for f_ind in range(len(filings)):
-                    if fdates[f_ind] == rdates[remi]:
-                        evtfilings += filings[f_ind] + " | "
-
-                cond = ("JURY VERDICT" in evtfilings) or ("JURY'S VERDICT" in evtfilings) \
-                       or ("JUDGMENT BY JURY" in evtfilings) or ("JURY Verdict" in evtfilings) \
-                       or ("Jury polled" in evtfilings) or ("JURY SPECIAL VERDICT" in evtfilings) \
-                       or ("VERDICT OF THE JURY" in evtfilings) or ("(JURY) VERDICT" in evtfilings) \
-                       or ("Jury Trial Proceedings" in evtfilings) or ("Jury Verdict -" in evtfilings) \
-                       or ("Jury returns verdict" in evtfilings) or ("Jury's Special Verdict" in evtfilings) \
-                       or ("Jury Note" in evtfilings) or ("Judgment on the Jury's Verdict" in evtfilings)
-
-                if cond:
-                    juryresult.append(row[8] + "@" + rdates[remi])
-                else:
-                    benchresult.append(row[8] + "@" + rdates[remi])
-
-        juryresult += exceptjury
-        benchresult += exceptbench
-
-        juryresult = set(juryresult)
-        benchresult = set(benchresult)
-
-
-        with open("data/Trial/TV9_trial_valid_jury.csv", 'w') as resultfile1:
-            writer = csv.writer(resultfile1)
-            writer.writerow(["Stock_Ticker", "Decision_Date"])
-
-            for elem in juryresult:
-                writer.writerow(elem.split("@"))
-
-        with open("data/Trial/TV10_trial_valid_bench.csv", 'w') as resultfile2:
-            writer = csv.writer(resultfile2)
-            writer.writerow(["Stock_Ticker", "Decision_Date"])
-
-            for elem in benchresult:
-                writer.writerow(elem.split("@"))
-
-        print ["Trial valid jury decisions : ", len(juryresult)]
-        print ["Trial valid bench decisions : ", len(benchresult)]
-
-
-
 def exception_cases():
     ## jury judge for all trial case
     url_full = "https://www.docketnavigator.com/detail/summary/case/"
@@ -427,19 +156,14 @@ def exception_cases():
     exceptbench_v += ["AAPL@June 23, 2017", "AAPL@January 18, 2016", "AAPL@August 20, 2015", "AAPL@November 25, 2014"]
     ######## exception
 
-    for i in range(len(exceptjury_full)):
-        exceptjury_full[i] = [exceptjury_full[i], "TJ"]
-    for i in range(len(exceptbench_full)):
-        exceptbench_full[i] = [exceptjury_bench[i], "TB"]
-    for i in range(len(exceptjury_v)):
-        exceptjury_v[i] = [exceptjury_v[i], "TVJ"]
-    for i in range(len(exceptbench_v)):
-        exceptbench_v[i] = [exceptbench_v[i], "TVB"]
-
     return [[urls_full,exceptjury_full,exceptbench_full],[urls_v,exceptjury_v,exceptjury_v]]
 
+
+
+
 def trial_division():
-    with open('data/Trial/all_complete_trial.csv', 'rb') as csvfile:
+    csv.field_size_limit(sys.maxsize)
+    with open('../Data/Trial/all_complete_trial.csv', 'rb') as csvfile:
         fulltrdata = csv.reader(csvfile)
         header = fulltrdata.next()
 
@@ -449,11 +173,11 @@ def trial_division():
 
         valid_jury = []
         valid_bench = []
-        valid_jb = []
+        res_vjb = []
 
         valid_benfit = []
         valid_against = []
-        valid_ba = []
+        res_vba = []
         valid_amount_100thd = []
 
         ## Exceptions
@@ -485,16 +209,20 @@ def trial_division():
             amounts[0] = amounts[0].replace("[u\'", "")
             amounts[-1] = amounts[-1].replace("\']", "")
 
-            ## For all trial data, jury&bench + >100thd division
-            if row[26] not in urls_full:
-                for i in range(0, len(rdates)):
-                    if amounts[i] != "N/A":
-                        amounts[i] = amounts[i].replace("$", "")
-                        amounts[i] = amounts[i].replace(",", "")
-                        amounts[i] = int(float(amounts[i]))
-                        if amounts[i] > 100000:
-                            amount_100thd.append([row[8] + "@" + rdates[i],"T100"])
+            for ind in range(len(amounts)):
+                if amounts[ind] != "N/A":
+                    amounts[ind] = amounts[ind].replace("$", "")
+                    amounts[ind] = amounts[ind].replace(",", "")
+                    amounts[ind] = int(float(amounts[ind]))
+                else:
+                    amounts[ind] = 0
 
+            ## For all trial data, jury&bench + >100thd division
+            for ind in range(len(rdates)):
+                if amounts[ind] > 100000:
+                    amount_100thd.append(row[8] + "@" + rdates[ind])
+
+            if row[26] not in urls_full:
                 for remi in range(len(rdates)):
                     evtfilings = ""
                     for f_ind in range(len(filings)):
@@ -510,26 +238,159 @@ def trial_division():
                            or ("Jury Notes" in evtfilings) or ("Judgment on the Jury's Verdict" in evtfilings)
 
                     if cond:
-                        juryresult.append([row[8] + "@" + rdates[remi], "TJ"])
+                        juryresult.append(row[8] + "@" + rdates[remi])
                     else:
-                        benchresult.append([row[8] + "@" + rdates[remi], "TB"])
+                        benchresult.append(row[8] + "@" + rdates[remi])
 
 
             ## Benefit Valid case division
-            if row[26] not in urls_v:
-                benes = re.split("[\'\"],\su[\'\"]", row[34])
-                ## remove the extra char from the first one and the last one
-                benes[0] = benes[0].replace("[u\'", "")
-                benes[-1] = benes[-1].replace("\']", "")
+            benes = re.split("[\'\"],\su[\'\"]", row[34])
+            ## remove the extra char from the first one and the last one
+            benes[0] = benes[0].replace("[u\'", "")
+            benes[-1] = benes[-1].replace("\']", "")
 
-                nonbenes = re.split("[\'\"],\su[\'\"]", row[33])
-                nonbenes[0] = nonbenes[0].replace("[u\'", "")
-                nonbenes[-1] = nonbenes[-1].replace("\']", "")
+            nonbenes = re.split("[\'\"],\su[\'\"]", row[33])
+            nonbenes[0] = nonbenes[0].replace("[u\'", "")
+            nonbenes[-1] = nonbenes[-1].replace("\']", "")
+
+            for i in range(0, len(rdates)):
+                if benes[i] == row[9] or nonbenes[i] == row[9]:
+                    if benes[i] == row[9]:
+                        valid_benfit.append(row[8] + "@" + rdates[i])
+                    if nonbenes[i] == row[9]:
+                        valid_against.append(row[8] + "@" + rdates[i])
+
+                    if amounts[i] > 100000:
+                        valid_amount_100thd.append(row[8] + "@" + rdates[i])
+
+                    evtfilings = ""
+                    for f_ind in range(len(filings)):
+                        if fdates[f_ind] == rdates[i]:
+                            evtfilings += filings[f_ind] + " | "
+
+                    cond2 = ("JURY VERDICT" in evtfilings) or ("JURY'S VERDICT" in evtfilings) \
+                        or ("JUDGMENT BY JURY" in evtfilings) or ("JURY Verdict" in evtfilings) \
+                        or ("Jury polled" in evtfilings) or ("JURY SPECIAL VERDICT" in evtfilings) \
+                        or ("VERDICT OF THE JURY" in evtfilings) or ("(JURY) VERDICT" in evtfilings) \
+                        or ("Jury Trial Proceedings" in evtfilings) or ("Jury Verdict -" in evtfilings) \
+                        or ("Jury returns verdict" in evtfilings) or ("Jury's Special Verdict" in evtfilings) \
+                        or ("Jury Note" in evtfilings) or ("Judgment on the Jury's Verdict" in evtfilings)
+
+                    if cond2 and row[26] not in urls_v:
+                        valid_jury.append(row[8] + "@" + rdates[i])
+                    elif row[26] not in urls_v:
+                        valid_bench.append(row[8] + "@" + rdates[i])
+
+        res_tjury = list(set(juryresult))
+        res_tbench = list(set(benchresult))
+        res_tjb = []
+        res_t100thd = set(amount_100thd)
+        for i in res_tjury:
+            if i in res_tbench:
+                res_tjb.append(i)
+        for i in res_tjb:
+            res_tjury.remove(i)
+            res_tbench.remove(i)
 
 
-                for i in range(0, len(rdates)):
-                    if benes[i] == row[9] or nonbenes[i] == row[9]:
+        res_tvjury = list(set(valid_jury))
+        res_tvbench = list(set(valid_bench))
+        res_tvjb = []
+        res_tv100thd = set(valid_amount_100thd)
+        for i in res_tvjury:
+            if i in res_tvbench:
+                res_tvjb.append(i)
+        for i in res_tvjb:
+            res_tvjury.remove(i)
+            res_tvbench.remove(i)
+
+        res_tvbenefit = list(set(valid_benfit))
+        res_tvagainst = list(set(valid_against))
+        res_tvbfa = []
+        for i in res_tvbenefit:
+            if i in res_tvagainst:
+                res_tvbfa.append(i)
+        for i in res_tvbfa:
+            res_tvbenefit.remove(i)
+            res_tvagainst.remove(i)
 
 
+        with open("../Data/Trial/Trial_TDC.csv", 'w') as resultfile:
+            writer = csv.writer(resultfile)
+            writer.writerow(["Stock_Ticker", "Decision_Date", "Category"])
+
+            for row in res_tjury:
+                cate = "TJ"
+                if row in res_t100thd:
+                    cate += "|T100"
+                if row in res_tvbenefit:
+                    cate += "|TVBF"
+                if row in res_tvagainst:
+                    cate += "|TVA"
+                if row in res_tvbfa:
+                    cate += "|TVBFA"
+                if row in res_tvjury:
+                    cate += "|TVJ"
+                if row in res_tvbench:
+                    cate += "|TVB"
+                if row in res_tvjb:
+                    cate += "|TVJB"
+                if row in res_tv100thd:
+                    cate += "|TV100"
+                writer.writerow(row.split("@") + [cate])
+
+            for row in res_tbench:
+                cate = "TB"
+                if row in res_t100thd:
+                    cate += "|T100"
+                if row in res_tvbenefit:
+                    cate += "|TVBF"
+                if row in res_tvagainst:
+                    cate += "|TVA"
+                if row in res_tvbfa:
+                    cate += "|TVBFA"
+                if row in res_tvjury:
+                    cate += "|TVJ"
+                if row in res_tvbench:
+                    cate += "|TVB"
+                if row in res_tvjb:
+                    cate += "|TVJB"
+                if row in res_tv100thd:
+                    cate += "|TV100"
+                writer.writerow(row.split("@") + [cate])
+
+            for row in res_tjb:
+                cate = "TB"
+                if row in res_t100thd:
+                    cate += "|T100"
+                if row in res_tvbenefit:
+                    cate += "|TVBF"
+                if row in res_tvagainst:
+                    cate += "|TVA"
+                if row in res_tvbfa:
+                    cate += "|TVBFA"
+                if row in res_tvjury:
+                    cate += "|TVJ"
+                if row in res_tvbench:
+                    cate += "|TVB"
+                if row in res_tvjb:
+                    cate += "|TVJB"
+                if row in res_tv100thd:
+                    cate += "|TV100"
+                writer.writerow(row.split("@") + [cate])
+
+        print ["All appellate data : ", len(res_tjury) + len(res_tbench) + len(res_tjb)]
+        print ["Category TJ : Trial with jury decision : ", len(res_tjury)]
+        print ["Category TB : Trial with bench decision : ", len(res_tbench)]
+        print ["Category TJB : Trial with both jury&bench decision : ", len(res_tjb)]
+        print ["Category T100 : Trial with remedy amount larger than $100,000 : ", len(res_t100thd)]
+        print ["Category TVJ : Trial benefit valided with jury decision : ", len(res_tvjury)]
+        print ["Category TVB : Trial benefit valided with bench decision : ", len(res_tvbench)]
+        print ["Category TVJB : Trial benefit valided with with both jury&bench decision : ", len(res_tvjb)]
+        print ["Category TVBF : Trial benefit valided and is beneficiary party in the remedy : ", len(res_tvbenefit)]
+        print ["Category TVA : Trial benefit valided and is against party in the remedy : ", len(res_tvagainst)]
+        print ["Category TVBFA : Trial benefit valided and is both beneficiary&agianst party in the remedy : ", len(res_tvbfa)]
+        print ["Category TV100 : Trial benefit valided with remedy amount larger than $100,000 : ", len(res_tv100thd)]
 
 
+trial_division()
