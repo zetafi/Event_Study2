@@ -600,6 +600,7 @@ def CAR_app_SD():
                 res_win6.append([row[0], row[1], sum(ar[(evtWin6l + 20):(evtWin6h + 20)]), sum(ar[(evtWin6l + 20):(evtWin6h + 20)]) / (rse * pow(evtWin6h - evtWin6l, 0.5))])
                 res_win7.append([row[0], row[1], sum(ar[(evtWin7l + 20):(evtWin7h + 20)]), sum(ar[(evtWin7l + 20):(evtWin7h + 20)]) / (rse * pow(evtWin7h - evtWin7l, 0.5))])
 
+
             for wini in range(0,7):
                 with open("../Data/Appellate/SD_CAR/" + "".join(cate) + "_[" + str(windows[wini][0]) + "," + str(
                         str(windows[wini][1])) + ")_EstWin" + str(
@@ -757,6 +758,7 @@ def CAR_app_EXT1():
                 pval7 = float(bisect.bisect_left(car_mc7, car7))
                 pval7 /= 100000
                 res_win7.append([row[0], row[1], car7, car7/ (rse * pow(evtWin7h - evtWin7l, 0.5)), pval7])
+
 
 
             for wini in range(0,7):

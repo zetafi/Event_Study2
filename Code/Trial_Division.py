@@ -157,7 +157,7 @@ def TV2_TV3_TV4_trial_benefit():
     csv.field_size_limit(sys.maxsize)
 
 
-    with open('data/Trial/trial_bene_agnst_valid.csv', 'rb') as csvfile:
+    with open('../Data/Trial/trial_bene_agnst_valid.csv', 'rb') as csvfile:
         benetrdata = csv.reader(csvfile)
         header = benetrdata.next()
 
@@ -180,35 +180,45 @@ def TV2_TV3_TV4_trial_benefit():
 
         resultall = resultbene + resultnonbene
 
+        for i in resultbene:
+            if i in resultnonbene:
+                print i
+
+
+        
+
         # turn a list into set to eliminate duplication
-        resultbene = set(resultbene)
-        resultnonbene = set(resultnonbene)
-        resultall = set(resultall)
+        # resultbene = set(resultbene)
+        # resultnonbene = set(resultnonbene)
+        # resultall = set(resultall)
 
-        with open("data/Trial/TV2_trial_beneficiary.csv", 'w') as resultfile1:
-            writer = csv.writer(resultfile1)
-            writer.writerow(["Stock_Ticker", "Decision_Date"])
-
-            for elem in resultbene:
-                writer.writerow(elem.split("@"))
-
-        with open("data/Trial/TV3_trial_non_beneficiary.csv", 'w') as resultfile2:
-            writer = csv.writer(resultfile2)
-            writer.writerow(["Stock_Ticker", "Decision_Date"])
-
-            for elem in resultnonbene:
-                writer.writerow(elem.split("@"))
-
-        with open("data/Trial/TV4_trial_bene&nonbene.csv", 'w') as resultfile3:
-            writer = csv.writer(resultfile3)
-            writer.writerow(["Stock_Ticker", "Decision_Date"])
-
-            for elem in resultall:
-                writer.writerow(elem.split("@"))
+        # with open("data/Trial/TV2_trial_beneficiary.csv", 'w') as resultfile1:
+        #     writer = csv.writer(resultfile1)
+        #     writer.writerow(["Stock_Ticker", "Decision_Date"])
+        #
+        #     for elem in resultbene:
+        #         writer.writerow(elem.split("@"))
+        #
+        # with open("data/Trial/TV3_trial_non_beneficiary.csv", 'w') as resultfile2:
+        #     writer = csv.writer(resultfile2)
+        #     writer.writerow(["Stock_Ticker", "Decision_Date"])
+        #
+        #     for elem in resultnonbene:
+        #         writer.writerow(elem.split("@"))
+        #
+        # with open("data/Trial/TV4_trial_bene&nonbene.csv", 'w') as resultfile3:
+        #     writer = csv.writer(resultfile3)
+        #     writer.writerow(["Stock_Ticker", "Decision_Date"])
+        #
+        #     for elem in resultall:
+        #         writer.writerow(elem.split("@"))
 
         print ["Beneficiary cases : " , len(resultbene)]
         print ["Non-beneficiary cases : ", len(resultnonbene)]
         print ["Beneficiray + Non-beneficiary cases : ", len(resultall)]
+
+
+TV2_TV3_TV4_trial_benefit()
 
 
 # T5 is the table of all trial cases that remedy amount is greater than $100,000
@@ -571,3 +581,16 @@ def main_trial():
 
 
 def trial_division():
+    with open('data/Trial/all_complete_trial.csv', 'rb') as csvfile:
+        fulltrdata = csv.reader(csvfile)
+        header = fulltrdata.next()
+
+        juryresult = []
+        benchresult = []
+        amount_100thd = []
+
+        valid_jury = []
+        valid_bench = []
+        valid_benfit = []
+        valid_against = []
+        valid_amount_100thd = []
