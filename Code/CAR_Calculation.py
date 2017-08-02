@@ -686,7 +686,7 @@ def CAR_app_EXT1():
             for wini in range(0,7):
                 with open("../Data/Appellate/EXT1_CAR/" + "".join(cate) + "_[" + str(windows[wini][0]) + "," + str(
                         str(windows[wini][1])) + ")_EstWin" + str(
-                        estWinl) + "," + str(estWinh) + "_" + str(len(total_res[wini])) + ".csv", 'w') as resultfile:
+                    extestWinl1) + "," + str(extestWinh1) + "_" + str(len(total_res[wini])) + ".csv", 'w') as resultfile:
                     writer = csv.writer(resultfile)
                     writer.writerow(["Stock_Ticker", "Decision_Date", "CAR", "CAR/Sigma"])
                     for i in total_res[wini]:
@@ -769,7 +769,7 @@ def CAR_app_EXT2():
             for wini in range(0,7):
                 with open("../Data/Appellate/EXT2_CAR/" + "".join(cate) + "_[" + str(windows[wini][0]) + "," + str(
                         str(windows[wini][1])) + ")_EstWin" + str(
-                        estWinl) + "," + str(estWinh) + "_" + str(len(total_res[wini])) + ".csv", 'w') as resultfile:
+                    extestWinh2) + "," + str(extestWinh2) + "_" + str(len(total_res[wini])) + ".csv", 'w') as resultfile:
                     writer = csv.writer(resultfile)
                     writer.writerow(["Stock_Ticker", "Decision_Date", "CAR", "CAR/Sigma"])
                     for i in total_res[wini]:
