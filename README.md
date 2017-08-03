@@ -13,5 +13,5 @@
 * __TVJ__ All benefit valid cases decided by jury
 * __TVB__ All benefit valid cases decided by bench
 * __A1&A2&A3__ All appellate cases
-* __A1__ All affirmed appellate cases
-* __A2__ All non-affirmed appellate cases
+* __A1__ All win cases
+* __A2__ All lose cases
