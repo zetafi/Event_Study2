@@ -12,6 +12,6 @@
 * __TV100__ All benefit valid trial cases that remedy amount is greater than $100,000
 * __TVJ__ All benefit valid cases decided by jury
 * __TVB__ All benefit valid cases decided by bench
-* __A1__ All appellate cases
-* __A2__ All confirmed appellate cases
-* __A3__ All non-confirmed appellate cases
+* __A1&A2&A3__ All appellate cases
+* __A1__ All confirmed appellate cases
+* __A2__ All non-confirmed appellate cases
