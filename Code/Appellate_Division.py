@@ -38,6 +38,32 @@ def all_appellate_data():
         print ["All appellate data : ", count]
 
 
+
+# division
+petitioner = ["PLAINTIFF", "APPELLANT", "PETITIONER", "PLAINTIFF-APPELLANT", "PLAINTIFF-APPELLANT, PLAINTIFF-APPELLANT", "APPELLANT, CROSS-APPELLANT"]
+respondent= ["RESPONDENT", "THIRDPARTYDEFENDANT-APPELLEE, THIRDPARTYDEFENDANT", "DEFENDANT-APPELLEE", "DEFENDANT",
+			"THIRDPARTYDEFENDANT", "DEFENDANT, DEFENDANT-APPELLEE", "APPELLEE", "DEFENDANT, SECONDARYENTITY"]
+
+other= ["SANCTIONEDPARTY", "SECONDARYENTITY", "DEFENDANT-PETITIONER", "INTERVENOR-APPELLANT", "THIRDPARTYDEFENDANT-APPELLEE",
+		"NONPARTY-APPELLANT", "AMICUSCURIAE", "AMICUS CURIAE, AMICUSCURIAE", "AMICUS CURIAE", "INTERVENOR", "MOVANT-APPELLEE"]
+
+cross= ["COUNTERCLAIMDEFENDANT","COUNTERCLAIMDEFENDANT-APPELLEE", "PLAINTIFF/COUNTERCLAIMDEFENDANT-APPELLANT",
+		"PLAINTIFF-APPELLEE, INTERESTEDPARTY-SECONDARYENTITY",
+		"PLAINTIFF-APPELLEE, PLAINTIFF-APPELLEE","PLAINTIFF/COUNTERCLAIMDEFENDANT-APPELLEE",
+		"APPELLEE, APPELLANT", "DEFENDANT/COUNTERCLAIMANT-APPELLEE", "DEFENDANT, DEFENDANT-APPELLEE, DEFENDANT-CROSS-APPELLANT",
+		"DEFENDANT/CROSS APPELLANT, DEFENDANT-CROSS-APPELLANT", "DEFENDANT-APPELLANT, DEFENDANT-CROSS-APPELLANT",
+		"DEFENDANT-APPELLANT, DEFENDANT-CROSS-APPELLANT", "CROSS-APPELLANT", "DEFENDANT/COUNTERCLAIMANT-APPELLANT",
+		"DEFENDANT-APPELLANT, DEFENDANT-APPELLEE, DEFENDANT-CROSS-APPELLANT", "PLAINTIFF-APPELLANT, PLAINTIFF-APPELLEE",
+		"APPELLEE, CROSS-APPELLANT", "COUNTERCLAIM DEFENDANT-APPELLEE", "DEFENDANT/COUNTERCLAIMANT-CROSS APPELLANT, DEFENDANT/COUNTERCLAIMANT-CROSS-APPELLANT",
+		"DEFENDANT/COUNTERCLAIMANT-CROSS-APPELLANT", "PLAINTIFF-APPELLEE, PLAINTIFF/COUNTERCLAIMDEFENDANT-APPELLEE",
+		"PLAINTIFF-APPELLEE, PLAINTIFF-CROSS-APPELLANT", "DEFENDANT/COUNTERCLAIMANT-CROSS APPELLANT",
+		"PLAINTIFF, PLAINTIFF-APPELLEE, DEFENDANT-APPELLEE", "DEFENDANT-CROSS-APPELLANT", "PLAINTIFF-CROSS-APPELLANT",
+		"COUNTERCLAIMDEFENDANT, COUNTERCLAIMDEFENDANT-APPELLEE", "PLAINTIFF-CROSS APPELLANT, PLAINTIFF-CROSS-APPELLANT",
+		"DEFENDANT/CROSS APPELLANT, DEFENDANT/THIRDPARTYPLAINTIFF/COUNTERCLAIMANT-CROSS-APPELLANT",
+		"DEFENDANT-APPELLANT", "DEFENDANT-APPELLEE, DEFENDANT-CROSS-APPELLANT", "DEFENDANT, DEFENDANT-APPELLANT, DEFENDANT-CROSS-APPELLANT",
+		"PLAINTIFF-APPELLEE", "DEFENDANT, DEFENDANT-APPELLANT"]
+
+
 #415 affirmed
 #249 nonaffirmed
 #10 in between
@@ -50,8 +76,12 @@ def appellate_division():
         apdata = csv.reader(csvfile)
         header = apdata.next()
 
-        resultaffirm = []
-        resultnonaffirm = []
+        #resultaffirm = []
+        #resultnonaffirm = []
+        
+        result_win = []
+        result_lose = []
+        result_other = []
 
         keyword = "The judgment or decision is: "
 
@@ -94,39 +124,57 @@ def appellate_division():
                             lastfiling = (datetime.datetime.strptime(fdates[ind], "%B %d, %Y").date() - datetime.datetime.strptime(fdates[lastind], "%B %d, %Y").date()).days
 
                         if judgresult == "Affirmed" or judgresult == "affirmed":
-                            resultaffirm.append([row[8] + "@" + fdates[ind], str(lastfiling)])
+                            if row[5] in petitioner:
+                                result_lose.append([row[8] + "@" + fdates[ind], str(lastfiling)])
+                            elif row[5] in respondent:
+                                result_win.append([row[8] + "@" + fdates[ind], str(lastfiling)])
+                            else:
+                                result_other.append([row[8] + "@" + fdates[ind], str(lastfiling)])
                         else:
-                            resultnonaffirm.append([row[8] + "@" + fdates[ind], str(lastfiling)])
+                            if row[5] in petitioner:
+                                result_win.append([row[8] + "@" + fdates[ind], str(lastfiling)])
+                            elif row[5] in respondent:
+                                result_lose.append([row[8] + "@" + fdates[ind], str(lastfiling)])
+                            else:
+                                result_other.append([row[8] + "@" + fdates[ind], str(lastfiling)])
 
-        res_affirm_dict = {}
-        for item in resultaffirm:
-            if res_affirm_dict.has_key(item[0]):
-                res_affirm_dict[item[0]].append(item[1])
+        res_win_dict = {}
+        for item in result_win:
+            if res_win_dict.has_key(item[0]):
+                res_win_dict[item[0]].append(item[1])
             else:
-                res_affirm_dict[item[0]] = [item[1]]
+                res_win_dict[item[0]] = [item[1]]
 
-        res_nonaffirm_dict = {}
-        for item in resultnonaffirm:
-            if res_nonaffirm_dict.has_key(item[0]):
-                res_nonaffirm_dict[item[0]].append(item[1])
+        res_lose_dict = {}
+        for item in result_lose:
+            if res_lose_dict.has_key(item[0]):
+                res_lose_dict[item[0]].append(item[1])
             else:
-                res_nonaffirm_dict[item[0]] = [item[1]]
+                res_lose_dict[item[0]] = [item[1]]
 
         res_middle_dict = {}
-        for key, value in res_affirm_dict.iteritems():
-            if res_nonaffirm_dict.has_key(key):
-                res_middle_dict[key] = value + res_nonaffirm_dict[key]
+        for key, value in res_win_dict.iteritems():
+            if res_lose_dict.has_key(key):
+                res_middle_dict[key] = value + res_lose_dict[key]
 
         for key in res_middle_dict.iterkeys():
-            del res_affirm_dict[key]
-            del res_nonaffirm_dict[key]
+            del res_win_dict[key]
+            del res_lose_dict[key]
 
 
-        for key in res_affirm_dict.iterkeys():
-            res_affirm_dict[key] = set(res_affirm_dict[key])
 
-        for key in res_nonaffirm_dict.iterkeys():
-            res_nonaffirm_dict[key] = set(res_nonaffirm_dict[key])
+        for item in result_other:
+            if res_middle_dict.has_key(item[0]):
+                res_middle_dict[item[0]].append(item[1])
+            else:
+                res_middle_dict[item[0]] = [item[1]]
+
+
+        for key in res_win_dict.iterkeys():
+            res_win_dict[key] = set(res_win_dict[key])
+
+        for key in res_lose_dict.iterkeys():
+            res_lose_dict[key] = set(res_lose_dict[key])
 
         for key in res_middle_dict.iterkeys():
             res_middle_dict[key] = set(res_middle_dict[key])
@@ -137,22 +185,22 @@ def appellate_division():
             writer = csv.writer(resultfile)
             writer.writerow(["Stock_Ticker", "Decision_Date", "Last_Filing_Days","Category"])
 
-            for key, value in res_affirm_dict.iteritems():
+            for key, value in res_win_dict.iteritems():
                 writer.writerow(key.split("@") + ["|".join(value), "A1"])
 
-            for key, value in res_nonaffirm_dict.iteritems():
+            for key, value in res_lose_dict.iteritems():
                 writer.writerow(key.split("@") + ["|".join(value), "A2"])
             for key, value in res_middle_dict.iteritems():
                 writer.writerow(key.split("@") + ["|".join(value), "A3"])
 
-        print ["All appellate data : ", len(res_affirm_dict) + len(res_middle_dict) + len(res_nonaffirm_dict)]
-        print ["Category A1 : Appellate with affirmed decision : ", len(res_affirm_dict)]
-        print ["Category A2 : Appellate with not totally affirmed decision : ", len(res_nonaffirm_dict)]
-        print ["Category A3 : Appellate with both decision : ", len(res_middle_dict)]
+        print ["All appellate data : ", len(res_win_dict) + len(res_middle_dict) + len(res_lose_dict)]
+        print ["Category A1 : Appellate with a win : ", len(res_win_dict)]
+        print ["Category A2 : Appellate with a lose : ", len(res_lose_dict)]
+        print ["Category A3 : Appellate with not clear : ", len(res_middle_dict)]
 
 
 
-#appellate_division()
+appellate_division()
 
 def main_appellate():
     all_appellate_data()
