@@ -13,7 +13,7 @@
     <SUITE FILE_PATH="coverage/week6$Appellate_Division.coverage" NAME="Appellate_Division Coverage Results" MODIFIED="1501790741879" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Code" />
     <SUITE FILE_PATH="coverage/week6$CAR_Calculation.coverage" NAME="CAR_Calculation Coverage Results" MODIFIED="1501796861119" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Code" />
     <SUITE FILE_PATH="coverage/week6$app_win_explore.coverage" NAME="app_win_explore Coverage Results" MODIFIED="1501790720666" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Code" />
-    <SUITE FILE_PATH="coverage/week6$Mean_Abs_Sq_CAR.coverage" NAME="Mean_Abs_Sq_CAR Coverage Results" MODIFIED="1501801331286" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Code" />
+    <SUITE FILE_PATH="coverage/week6$Mean_Abs_Sq_CAR.coverage" NAME="Mean_Abs_Sq_CAR Coverage Results" MODIFIED="1501802161514" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Code" />
     <SUITE FILE_PATH="coverage/week6$Trial_Division.coverage" NAME="Trial_Division Coverage Results" MODIFIED="1501712805646" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Code" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
@@ -22,8 +22,8 @@
       <file leaf-file-name="Mean_Abs_Sq_CAR.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Code/Mean_Abs_Sq_CAR.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="211">
-              <caret line="303" column="31" lean-forward="false" selection-start-line="303" selection-start-column="31" selection-end-line="303" selection-end-column="31" />
+            <state relative-caret-position="-2418">
+              <caret line="285" column="20" lean-forward="false" selection-start-line="285" selection-start-column="20" selection-end-line="285" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -484,8 +484,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Code/Mean_Abs_Sq_CAR.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="211">
-          <caret line="303" column="31" lean-forward="false" selection-start-line="303" selection-start-column="31" selection-end-line="303" selection-end-column="31" />
+        <state relative-caret-position="-2418">
+          <caret line="285" column="20" lean-forward="false" selection-start-line="285" selection-start-column="20" selection-end-line="285" selection-end-column="20" />
           <folding />
         </state>
       </provider>
