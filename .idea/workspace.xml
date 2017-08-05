@@ -10,21 +10,25 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/week6$Bootstrap.coverage" NAME="Bootstrap Coverage Results" MODIFIED="1501867401857" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Code" />
     <SUITE FILE_PATH="coverage/week6$Appellate_Division.coverage" NAME="Appellate_Division Coverage Results" MODIFIED="1501790741879" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Code" />
-    <SUITE FILE_PATH="coverage/week6$CAR_Calculation.coverage" NAME="CAR_Calculation Coverage Results" MODIFIED="1501796861119" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Code" />
+    <SUITE FILE_PATH="coverage/week6$CAR_Calculation.coverage" NAME="CAR_Calculation Coverage Results" MODIFIED="1501866910823" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Code" />
     <SUITE FILE_PATH="coverage/week6$app_win_explore.coverage" NAME="app_win_explore Coverage Results" MODIFIED="1501790720666" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Code" />
-    <SUITE FILE_PATH="coverage/week6$Mean_Abs_Sq_CAR.coverage" NAME="Mean_Abs_Sq_CAR Coverage Results" MODIFIED="1501858685804" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Code" />
+    <SUITE FILE_PATH="coverage/week6$Mean_Abs_Sq_CAR.coverage" NAME="Mean_Abs_Sq_CAR Coverage Results" MODIFIED="1501868652639" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Code" />
     <SUITE FILE_PATH="coverage/week6$Trial_Division.coverage" NAME="Trial_Division Coverage Results" MODIFIED="1501712805646" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Code" />
+    <SUITE FILE_PATH="coverage/week6$detect_relation.coverage" NAME="detect_relation Coverage Results" MODIFIED="1501882997338" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Code" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Mean_Abs_Sq_CAR.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Code/Mean_Abs_Sq_CAR.py">
+      <file leaf-file-name="Bootstrap.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Code/Bootstrap.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="177">
-              <caret line="458" column="1" lean-forward="false" selection-start-line="458" selection-start-column="1" selection-end-line="458" selection-end-column="1" />
-              <folding />
+            <state relative-caret-position="242">
+              <caret line="203" column="0" lean-forward="true" selection-start-line="203" selection-start-column="0" selection-end-line="203" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#10#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -48,11 +52,14 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Code/Trial_Division.py" />
         <option value="$PROJECT_DIR$/Code/Appellate_Division.py" />
         <option value="$PROJECT_DIR$/Code/app_win_explore.py" />
-        <option value="$PROJECT_DIR$/Code/CAR_Calculation.py" />
         <option value="$PROJECT_DIR$/Code/Mean_Abs_Sq_CAR.py" />
+        <option value="$PROJECT_DIR$/Code/Bootstrap.py" />
+        <option value="$PROJECT_DIR$/Code/correlation.py" />
+        <option value="$PROJECT_DIR$/Code/CAR_Calculation.py" />
+        <option value="$PROJECT_DIR$/Code/Trial_Division.py" />
+        <option value="$PROJECT_DIR$/Code/detect_relation.py" />
       </list>
     </option>
   </component>
@@ -106,6 +113,20 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="Data" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="week6" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="week6" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="Code" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -131,7 +152,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.Mean_Abs_Sq_CAR">
+  <component name="RunManager" selected="Python.detect_relation">
     <configuration default="false" name="Appellate_Division" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -189,7 +210,7 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <method />
     </configuration>
-    <configuration default="false" name="Trial_Division" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration default="false" name="Bootstrap" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -202,13 +223,13 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="week6" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Code/Trial_Division.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Code/Bootstrap.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <method />
     </configuration>
-    <configuration default="false" name="app_win_explore" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration default="false" name="detect_relation" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -221,7 +242,7 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="week6" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Code/app_win_explore.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Code/detect_relation.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -373,16 +394,16 @@
       <item index="0" class="java.lang.String" itemvalue="Python.Appellate_Division" />
       <item index="1" class="java.lang.String" itemvalue="Python.CAR_Calculation" />
       <item index="2" class="java.lang.String" itemvalue="Python.Mean_Abs_Sq_CAR" />
-      <item index="3" class="java.lang.String" itemvalue="Python.Trial_Division" />
-      <item index="4" class="java.lang.String" itemvalue="Python.app_win_explore" />
+      <item index="3" class="java.lang.String" itemvalue="Python.Bootstrap" />
+      <item index="4" class="java.lang.String" itemvalue="Python.detect_relation" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.Mean_Abs_Sq_CAR" />
-        <item index="1" class="java.lang.String" itemvalue="Python.CAR_Calculation" />
-        <item index="2" class="java.lang.String" itemvalue="Python.Appellate_Division" />
-        <item index="3" class="java.lang.String" itemvalue="Python.app_win_explore" />
-        <item index="4" class="java.lang.String" itemvalue="Python.Trial_Division" />
+        <item index="0" class="java.lang.String" itemvalue="Python.detect_relation" />
+        <item index="1" class="java.lang.String" itemvalue="Python.Mean_Abs_Sq_CAR" />
+        <item index="2" class="java.lang.String" itemvalue="Python.Bootstrap" />
+        <item index="3" class="java.lang.String" itemvalue="Python.CAR_Calculation" />
+        <item index="4" class="java.lang.String" itemvalue="Python.Appellate_Division" />
       </list>
     </recent_temporary>
   </component>
@@ -413,11 +434,10 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="11" y="39" width="1346" height="631" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3283859" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29090908" sideWeight="0.5030675" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.296846" sideWeight="0.4969325" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27829313" sideWeight="0.4969325" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3283859" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3283859" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -447,16 +467,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Code/Trial_Division.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="233">
-          <caret line="240" column="28" lean-forward="false" selection-start-line="240" selection-start-column="28" selection-end-line="240" selection-end-column="28" />
-          <folding>
-            <element signature="e#0#10#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Code/app_win_explore.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
@@ -465,29 +475,63 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Code/Appellate_Division.py">
+    <entry file="file://$PROJECT_DIR$/Code/Mean_Abs_Sq_CAR.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="334">
-          <caret line="208" column="0" lean-forward="true" selection-start-line="208" selection-start-column="0" selection-end-line="208" selection-end-column="0" />
+        <state relative-caret-position="253">
+          <caret line="463" column="0" lean-forward="false" selection-start-line="463" selection-start-column="0" selection-end-line="463" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Code/correlation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Code/Trial_Division.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="319" column="74" lean-forward="true" selection-start-line="317" selection-start-column="8" selection-end-line="319" selection-end-column="74" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Code/CAR_Calculation.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-6547">
-          <caret line="802" column="25" lean-forward="true" selection-start-line="802" selection-start-column="25" selection-end-line="802" selection-end-column="25" />
+        <state relative-caret-position="150">
+          <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="62" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Code/Appellate_Division.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-56">
+          <caret line="145" column="49" lean-forward="true" selection-start-line="140" selection-start-column="8" selection-end-line="145" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Code/detect_relation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3608">
+          <caret line="405" column="1" lean-forward="false" selection-start-line="405" selection-start-column="1" selection-end-line="405" selection-end-column="1" />
           <folding>
-            <element signature="e#0#11#0" expanded="true" />
+            <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Code/Mean_Abs_Sq_CAR.py">
+    <entry file="file://$PROJECT_DIR$/Code/Bootstrap.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="177">
-          <caret line="458" column="1" lean-forward="false" selection-start-line="458" selection-start-column="1" selection-end-line="458" selection-end-column="1" />
-          <folding />
+        <state relative-caret-position="242">
+          <caret line="203" column="0" lean-forward="true" selection-start-line="203" selection-start-column="0" selection-end-line="203" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -492,7 +492,7 @@ def all_AR(filepath, estWinl,estWinh, evtWinl, evtWinh, mod = "SM", bs = False):
 
 
 #all_AR("../Data/Appellate/Appellate_TDC.csv", -60, -30, -20, 5, mod="SM", bs=False)
-#all_AR("../Data/Appellate/Appellate_TDC.csv", -225, -50, -20, 5, mod="SM", bs=True)
+#all_AR("../Data/Appellate/Appellate_TDC.csv", -60, -30, -20, 5, mod="SM", bs=True)
 #all_AR("../Data/Appellate/Appellate_TDC.csv", -150, -30, -20, 5, mod="SM", bs=True)
 #all_AR("../Data/Appellate/Appellate_TDC.csv", -180, -10, -20, 5, mod="SM", bs=True)
 #all_AR("../Data/Appellate/Appellate_TDC.csv", -60, -30, -20, 5, mod="MM", bs=False)
